@@ -19,24 +19,24 @@ namespace ccjson {
 
         virtual std::string to_string(int indent = -1) const override;
 
-        virtual const Json& operator[](const std::string& key) const override {
+        virtual const JSON_TYPE& operator[](const std::string& key) const override {
             throw std::runtime_error("Cannot use string as array index");
         }
-        virtual const Json& operator[](const char* key) const override {
+        virtual const JSON_TYPE& operator[](const char* key) const override {
              throw std::runtime_error("Cannot use string as array index");
         }
-        virtual const Json& operator[](size_t index) const override {
-            return *value_.at(index);
+        virtual const JSON_TYPE& operator[](size_t index) const override {
+            return value_.at(index);
         }
 
-        virtual Json& operator[](const std::string& key) override {
+        virtual JSON_TYPE& operator[](const std::string& key) override {
             throw std::runtime_error("Cannot use string as array index");
         }
-        virtual Json& operator[](const char* key) override {
+        virtual JSON_TYPE& operator[](const char* key) override {
             throw std::runtime_error("Cannot use string as array index");
         }
-        virtual Json& operator[](size_t index) override {
-            return *value_.at(index);
+        virtual JSON_TYPE& operator[](size_t index) override {
+            return value_.at(index);
         }
 
         virtual Json& operator=(const Json& source) override;

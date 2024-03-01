@@ -18,23 +18,23 @@ namespace ccjson {
 
         virtual std::string to_string(int indent = -1) const override;
 
-        virtual const Json& operator[](const std::string& key) const override {
-            return *value_.at(key);
+        virtual const JSON_TYPE& operator[](const std::string& key) const override {
+            return value_.at(key);
         }
-        virtual const Json& operator[](const char* key) const override {
-            return *value_.at(key);
+        virtual const JSON_TYPE& operator[](const char* key) const override {
+            return value_.at(key);
         }
-        virtual const Json& operator[](size_t index) const override {
+        virtual const JSON_TYPE& operator[](size_t index) const override {
             throw std::runtime_error("Cannot use int as object key");
         }
 
-        virtual Json& operator[](const std::string& key) override {
-            return *value_.at(key);
+        virtual JSON_TYPE& operator[](const std::string& key) override {
+            return value_[key];
         }
-        virtual Json& operator[](const char* key) override {
-            return *value_.at(key);
+        virtual JSON_TYPE& operator[](const char* key) override {
+            return value_[key];
         }
-        virtual Json& operator[](size_t index) override {
+        virtual JSON_TYPE& operator[](size_t index) override {
             throw std::runtime_error("Cannot use int as object key");
         }
 

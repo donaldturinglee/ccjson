@@ -16,13 +16,13 @@ namespace ccjson {
 
         virtual ~Json() = default;
         virtual std::string to_string(int indent = -1) const = 0;
-        virtual const Json& operator[](const std::string& key) const = 0;
-        virtual const Json& operator[](const char* key) const = 0;
-        virtual const Json& operator[](size_t index) const = 0;
+        virtual const JSON_TYPE& operator[](const std::string& key) const = 0;
+        virtual const JSON_TYPE& operator[](const char* key) const = 0;
+        virtual const JSON_TYPE& operator[](size_t index) const = 0;
 
-        virtual Json& operator[](const std::string& key) = 0;
-        virtual Json& operator[](const char* key) = 0;
-        virtual Json& operator[](size_t index) = 0;
+        virtual JSON_TYPE& operator[](const std::string& key) = 0;
+        virtual JSON_TYPE& operator[](const char* key) = 0;
+        virtual JSON_TYPE& operator[](size_t index) = 0;
 
         virtual Json& operator=(const Json& source) = 0;
         virtual Json& operator=(Json&& source) = 0;

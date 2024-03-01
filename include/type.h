@@ -7,11 +7,12 @@
 #include <vector>
 #include <map>
 
+#define JSON_TYPE std::unique_ptr<Json>
 #define JSON_BOOL bool
 #define JSON_INT  int
 #define JSON_FLOAT float
 #define JSON_STRING std::string
-#define JSON_ARRAY std::vector<std::unique_ptr<Json>>
-#define JSON_OBJECT std::map<std::string, std::unique_ptr<Json>>
+#define JSON_ARRAY std::vector<JSON_TYPE>
+#define JSON_OBJECT std::map<std::string, JSON_TYPE>
 
 #endif // TYPE_H
