@@ -3,17 +3,9 @@
 using namespace ccjson;
 
 Object::Object() {}
-Object::Object(const JSON_OBJECT& value) : value_(value) {}
-Object::Object(const Object& source) {
-    value_ = source.value_;
-}
+Object::Object(JSON_OBJECT&& value) : value_(std::move(value)) {}
 Object::Object(Object&& source) {
     value_ = std::move(source.value_);
-}
-
-Object& Object::operator=(const Object& source) {
-    value_ = source.value_;
-    return *this;
 }
 
 Object& Object::operator=(Object&& source) {
@@ -31,13 +23,7 @@ std::string Object::to_string(int indent) const {
 }
 
 Json& Object::operator=(const Json& source) {
-    try {
-        const Object& source_object = dynamic_cast<const Object&>(source);
-        value_ = source_object.value_;
-    } catch(const std::bad_cast& e) {
-        throw std::runtime_error("Cannot assign a non-object value to an object");
-    }
-    return *this;
+    throw std::runtime_error("Cannot copy an object");
 }
 
 Json& Object::operator=(Json&& source) {

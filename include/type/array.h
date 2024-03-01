@@ -9,10 +9,11 @@ namespace ccjson {
     class Array : public Json {
     public:
         Array();
-        Array(const JSON_ARRAY& value);
-        Array(const Array& source);
+        Array(const JSON_ARRAY& value) = delete;
+        Array(JSON_ARRAY&& value);
+        Array(const Array& source) = delete;
         Array(Array&& source);
-        Array& operator=(const Array& source);
+        Array& operator=(const Array& source) = delete;
         Array& operator=(Array&& source);
         virtual ~Array() = default;
 

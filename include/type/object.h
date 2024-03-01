@@ -8,10 +8,11 @@ namespace ccjson {
     class Object : public Json {
     public:
         Object();
-        Object(const JSON_OBJECT& value);
-        Object(const Object& source);
+        Object(const JSON_OBJECT& value) = delete;
+        Object(JSON_OBJECT&& value);
+        Object(const Object& source) = delete;
         Object(Object&& source);
-        Object& operator=(const Object& source);
+        Object& operator=(const Object& source) = delete;
         Object& operator=(Object&& source);
         virtual ~Object() = default;
 
