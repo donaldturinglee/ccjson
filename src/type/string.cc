@@ -19,6 +19,6 @@ String& String::operator=(String&& source) {
     return *this;
 }
 
-std::string String::to_string(int indent) const {
+std::string String::to_string(int indent, int base_indent) const {
     return "\"" + value_ + "\"";
 }

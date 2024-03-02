@@ -113,6 +113,12 @@ JsonPtr& JsonPtr::operator=(const char* value) {
     return *this;
 }
 
+std::string JsonPtr::to_string(int indent, int base_indent) const {
+    if(indent > 0 && base_indent == 0) {
+        base_indent = indent;
+    }
+    return value_->to_string(indent, base_indent);
+}
 
 std::ostream& operator<<(std::ostream& os, const ccjson::Json& json) {
     return os << json.to_string();

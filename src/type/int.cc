@@ -21,6 +21,6 @@ Int& Int::operator=(Int&& other) {
     return *this;
 }
 
-std::string Int::to_string(int indent) const {
+std::string Int::to_string(int indent, int base_indent) const {
     return std::to_string(value_);
 }

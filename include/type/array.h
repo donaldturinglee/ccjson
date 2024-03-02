@@ -17,7 +17,7 @@ namespace ccjson {
         Array& operator=(Array&& source);
         virtual ~Array() = default;
 
-        virtual std::string to_string(int indent = -1) const override;
+        virtual std::string to_string(int indent = 0, int base_indent = 0) const override;
 
         // array
         virtual const JSON_TYPE& operator[](size_t index) const override {

@@ -21,6 +21,6 @@ Float& Float::operator=(Float&& source) {
     return *this;
 }
 
-std::string Float::to_string(int indent) const {
+std::string Float::to_string(int indent, int base_indent) const {
     return std::to_string(value_);
 }

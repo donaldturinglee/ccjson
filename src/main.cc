@@ -22,10 +22,7 @@ int main(int argc, char* argv[]) {
     obj["version"] = "0.0.1";
     j["object"] = std::move(obj);
 
-    std::cout << j << '\n';
+    std::cout << j.to_string(4) << '\n';
 
-    float wallet{j["wallet"]};
-    std::cout << wallet << '\n';
-    
     return 0;
 }

@@ -21,6 +21,6 @@ Bool& Bool::operator=(Bool&& source) {
     return *this;
 }
 
-std::string Bool::to_string(int indent) const {
+std::string Bool::to_string(int indent, int base_indent) const {
     return value_ ? "true" : "false";
 }
