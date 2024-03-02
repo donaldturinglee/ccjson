@@ -43,5 +43,8 @@ int main(int argc, char* argv[]) {
 
     std::cout << j.to_string(4) << '\n';
 
+    Int age = j["age"];
+    std::cout << age << '\n';
+
     return 0;
 }

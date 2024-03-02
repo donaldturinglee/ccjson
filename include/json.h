@@ -115,6 +115,13 @@ namespace ccjson {
 
         virtual ~JsonPtr() = default;
 
+        const std::unique_ptr<Json>& get() const {
+            return value_;
+        }
+        std::unique_ptr<Json>& get() {
+            return value_;
+        }
+
         virtual std::string to_string(int indent = 0, int base_indent = 0) const override;
 
         // array
@@ -249,6 +256,14 @@ namespace ccjson {
         operator JSON_BOOL() const {
             return get_bool();
         }
+
+        operator Array&();
+        operator Object&();
+        operator Bool&();
+        operator Float&();
+        operator Int&();
+        operator String&();
+        operator Null&();
 
         static JsonPtr parse(const std::string& json);
         static JsonPtr parse(std::ifstream& stream);
