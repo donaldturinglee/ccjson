@@ -39,9 +39,10 @@ endif
 
 CXX_COMPILER_CALL = $(CXX) $(CXXFLAGS) $(CPPFLAGS)
 
-CXX_SOURCES 		= $(wildcard $(SOURCE_DIR)/*.cc)
-CXX_OBJECTS 		= $(patsubst $(SOURCE_DIR)/%.cc, $(OBJECT_DIR)/%.o, $(CXX_SOURCES))
-CXX_DEPENDENCIES	= $(CXX_OBJECTS:.o = .d)
+SOURCE_SUB_DIR := $(shell find $(SOURCE_DIR) -type d)
+
+CXX_SOURCES := $(foreach dir,$(SOURCE_SUB_DIR),$(wildcard $(dir)/*.cc))
+CXX_OBJECTS := $(patsubst $(SOURCE_DIR)/%.cc, $(OBJECT_DIR)/%.o, $(CXX_SOURCES))
 
 ##############
 ## TARGETS  ##
@@ -75,9 +76,10 @@ endif
 ## PATTERNS ##
 ##############
 # $@: the file name of the target
-# $<: the name of the first ependency
+# $<: the name of the first dependency
 # $^: the names of all prerequisites
 $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cc
+	@mkdir -p $(dir $@)
 	$(CXX_COMPILER_CALL) -c $< -o $@
 
 ###########
@@ -98,4 +100,3 @@ endif
 	@echo "[*] Object dir: 		${OBJECT_DIR}	"
 	@echo "[*] Sources dir: 	${CXX_SOURCES}	"
 	@echo "[*] Objects dir: 	${CXX_OBJECTS}	"
-	@echo "[*] Dependencies:    ${CXX_DEPENDENCIES}"
