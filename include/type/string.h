@@ -13,32 +13,86 @@ namespace ccjson {
         String(String&& source);
         String& operator=(const String& source);
         String& operator=(String&& source);
-        ~String() = default;
-
-        virtual std::string to_string(int indent = -1) const override;
-
-        virtual const JSON_TYPE& operator[](const std::string& key) const override {
-            throw std::runtime_error("Cannot use index operator in a non-iterable type");
-        }
-        virtual const JSON_TYPE& operator[](const char* key) const override {
-            throw std::runtime_error("Cannot use index operator in a non-iterable type");
-        }
-        virtual const JSON_TYPE& operator[](size_t index) const override {
-            throw std::runtime_error("Cannot use index operator in a non-iterable type");
-        }
-
-        virtual JSON_TYPE& operator[](const std::string& key) override {
-            throw std::runtime_error("Cannot use index operator in a non-iterable type");
-        }
-        virtual JSON_TYPE& operator[](const char* key) override {
-            throw std::runtime_error("Cannot use index operator in a non-iterable type");
-        }
-        virtual JSON_TYPE& operator[](size_t index) override {
-            throw std::runtime_error("Cannot use index operator in a non-iterable type");
-        }
-
         virtual Json& operator=(const Json& source) override;
         virtual Json& operator=(Json&& source) override;
+        virtual ~String() = default;
+
+        virtual std::string to_string(int indent = -1) const override;
+        
+        // array
+        virtual const JSON_TYPE& operator[](size_t index) const override {
+            throw std::runtime_error("Cannot use operator[] on string");
+        }
+        virtual JSON_TYPE& operator[](size_t index) override {
+            throw std::runtime_error("Cannot use operator[] on string");
+        }
+        virtual void push(JSON_TYPE&& value) override {
+            throw std::runtime_error("Cannot use push() on string");
+        }
+        virtual void insert(size_t index, JSON_TYPE&& value) override {
+            throw std::runtime_error("Cannot use insert() on string");
+        }
+        virtual void erase(size_t index) override {
+            throw std::runtime_error("Cannot use erase() on string");
+        }
+        virtual const JSON_TYPE& at(size_t index) const override {
+            throw std::runtime_error("Cannot use at() on string");
+        }
+        virtual JSON_TYPE& at(size_t index) override {
+            throw std::runtime_error("Cannot use at() on string");
+        }
+        virtual const JSON_TYPE& front() const override {
+            throw std::runtime_error("Cannot use front() on string");
+        }
+        virtual JSON_TYPE& front() override {
+            throw std::runtime_error("Cannot use front() on string");
+        }
+        virtual const JSON_TYPE& back() const override {
+            throw std::runtime_error("Cannot use back() on string");
+        }
+        virtual JSON_TYPE& back() override {
+            throw std::runtime_error("Cannot use back() on string");
+        }
+
+        // object
+        virtual const JSON_TYPE& operator[](const std::string& key) const override {
+            throw std::runtime_error("Cannot use operator[] on string");
+        }
+        virtual JSON_TYPE& operator[](const std::string& key) override {
+            throw std::runtime_error("Cannot use operator[] on string");
+        }
+        virtual const JSON_TYPE& operator[](const char* key) const override {
+            throw std::runtime_error("Cannot use operator[] on string");
+        }
+        virtual JSON_TYPE& operator[](const char* key) override {
+            throw std::runtime_error("Cannot use operator[] on string");
+        }
+        virtual void insert(const std::string& key, JSON_TYPE&& value) override {
+            throw std::runtime_error("Cannot use insert() on string");
+        }
+        virtual bool contains(const std::string& key) const override {
+            throw std::runtime_error("Cannot use contains() on string");
+        }
+        virtual void erase(const std::string& key) override {
+            throw std::runtime_error("Cannot use erase() on string");
+        }
+        virtual const JSON_TYPE& at(const std::string& key) const override {
+            throw std::runtime_error("Cannot use at() on string");
+        }
+        virtual JSON_TYPE& at(const std::string& key) override {
+            throw std::runtime_error("Cannot use at() on string");
+        }
+
+        // both array and object
+        virtual void clear() override {
+            throw std::runtime_error("Cannot use clear() on string");
+        }
+        virtual size_t size() const override {
+            throw std::runtime_error("Cannot use size() on string");
+        }
+        virtual bool empty() const override {
+            throw std::runtime_error("Cannot use empty() on string");
+        }
 
         virtual const JSON_ARRAY& get_array() const override {
             throw std::runtime_error("Cannot convert string to array");

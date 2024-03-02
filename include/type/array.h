@@ -15,32 +15,78 @@ namespace ccjson {
         Array(Array&& source);
         Array& operator=(const Array& source) = delete;
         Array& operator=(Array&& source);
+        virtual Json& operator=(const Json& source) override;
+        virtual Json& operator=(Json&& source) override;
         virtual ~Array() = default;
 
         virtual std::string to_string(int indent = -1) const override;
 
+        // array
+        virtual const JSON_TYPE& operator[](size_t index) const override {
+            return value_[index];
+        }
+        virtual JSON_TYPE& operator[](size_t index) override {
+            return value_[index];
+        }
+        virtual void push(JSON_TYPE&& value) override {
+            value_.push_back(std::move(value));
+        }
+        virtual void insert(size_t index, JSON_TYPE&& value) override {
+            value_.insert(value_.begin() + index, std::move(value));
+        }
+        virtual void erase(size_t index) override {
+            value_.erase(value_.begin() + index);
+        }
+        virtual const JSON_TYPE& at(size_t index) const override {
+            return value_.at(index);
+        }
+        virtual JSON_TYPE& at(size_t index) override {
+            return value_.at(index);
+        }
+        virtual const JSON_TYPE& front() const override {
+            return value_.front();
+        }
+        virtual JSON_TYPE& front() override {
+            return value_.front();
+        }
+        virtual const JSON_TYPE& back() const override {
+            return value_.back();
+        }
+        virtual JSON_TYPE& back() override {
+            return value_.back();
+        }
+
+        // object
         virtual const JSON_TYPE& operator[](const std::string& key) const override {
             throw std::runtime_error("Cannot use string as array index");
         }
-        virtual const JSON_TYPE& operator[](const char* key) const override {
-             throw std::runtime_error("Cannot use string as array index");
-        }
-        virtual const JSON_TYPE& operator[](size_t index) const override {
-            return value_.at(index);
-        }
-
         virtual JSON_TYPE& operator[](const std::string& key) override {
+            throw std::runtime_error("Cannot use string as array index");
+        }
+        virtual const JSON_TYPE& operator[](const char* key) const override {
             throw std::runtime_error("Cannot use string as array index");
         }
         virtual JSON_TYPE& operator[](const char* key) override {
             throw std::runtime_error("Cannot use string as array index");
         }
-        virtual JSON_TYPE& operator[](size_t index) override {
-            return value_.at(index);
+
+        virtual void insert(const std::string& key, JSON_TYPE&& value) override {
+            throw std::runtime_error("Cannot use insert() on array");
+        }
+        virtual bool contains(const std::string& key) const override {
+            throw std::runtime_error("Cannot use contains() on array");
+        }
+        virtual void erase(const std::string& key) override {
+            throw std::runtime_error("Cannot use erase() on array");
+        }
+        virtual const JSON_TYPE& at(const std::string& key) const override {
+            throw std::runtime_error("Cannot use string as array index");
+        }
+        virtual JSON_TYPE& at(const std::string& key) override {
+            throw std::runtime_error("Cannot use string as array index");
         }
 
-        virtual Json& operator=(const Json& source) override;
-        virtual Json& operator=(Json&& source) override;
+        // both array and object
 
         virtual const JSON_ARRAY& get_array() const override {
             return value_;

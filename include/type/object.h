@@ -14,32 +14,86 @@ namespace ccjson {
         Object(Object&& source);
         Object& operator=(const Object& source) = delete;
         Object& operator=(Object&& source);
+        virtual Json& operator=(const Json& source) override;
+        virtual Json& operator=(Json&& source) override;
         virtual ~Object() = default;
 
         virtual std::string to_string(int indent = -1) const override;
 
-        virtual const JSON_TYPE& operator[](const std::string& key) const override {
-            return value_.at(key);
-        }
-        virtual const JSON_TYPE& operator[](const char* key) const override {
-            return value_.at(key);
-        }
+        // array
         virtual const JSON_TYPE& operator[](size_t index) const override {
             throw std::runtime_error("Cannot use int as object key");
-        }
-
-        virtual JSON_TYPE& operator[](const std::string& key) override {
-            return value_[key];
-        }
-        virtual JSON_TYPE& operator[](const char* key) override {
-            return value_[key];
         }
         virtual JSON_TYPE& operator[](size_t index) override {
             throw std::runtime_error("Cannot use int as object key");
         }
+        virtual void push(JSON_TYPE&& value) override {
+            throw std::runtime_error("Cannot use push() on object");
+        }
+        virtual void insert(size_t index, JSON_TYPE&& value) override {
+            throw std::runtime_error("Cannot use insert() on object");
+        }
+        virtual void erase(size_t index) override {
+            throw std::runtime_error("Cannot use erase() on object");
+        }
+        virtual const JSON_TYPE& at(size_t index) const override {
+            throw std::runtime_error("Cannot use int as object key");
+        }
+        virtual JSON_TYPE& at(size_t index) override {
+            throw std::runtime_error("Cannot use int as object key");
+        }
+        virtual const JSON_TYPE& front() const override {
+            throw std::runtime_error("Cannot use front() on object");
+        }
+        virtual JSON_TYPE& front() override {
+            throw std::runtime_error("Cannot use front() on object");
+        }
+        virtual const JSON_TYPE& back() const override {
+            throw std::runtime_error("Cannot use back() on object");
+        }
+        virtual JSON_TYPE& back() override {
+            throw std::runtime_error("Cannot use back() on object");
+        }
 
-        virtual Json& operator=(const Json& source) override;
-        virtual Json& operator=(Json&& other) override;
+        // object
+        virtual const JSON_TYPE& operator[](const std::string& key) const override {
+            return value_.at(key);
+        }
+        virtual JSON_TYPE& operator[](const std::string& key) override {
+            return value_[key];
+        }
+        virtual const JSON_TYPE& operator[](const char* key) const override {
+            return value_.at(key);
+        }
+        virtual JSON_TYPE& operator[](const char* key) override {
+            return value_[key];
+        }
+        virtual void insert(const std::string& key, JSON_TYPE&& value) override {
+            value_.insert(std::make_pair(key, std::move(value)));
+        }
+        virtual bool contains(const std::string& key) const override {
+            return value_.find(key) != value_.end();
+        }
+        virtual void erase(const std::string& key) override {
+            value_.erase(key);
+        }
+        virtual const JSON_TYPE& at(const std::string& key) const override {
+            return value_.at(key);
+        }
+        virtual JSON_TYPE& at(const std::string& key) override {
+            return value_.at(key);
+        }
+
+        // both array and object
+        virtual void clear() override {
+            value_.clear();
+        }
+        virtual size_t size() const override {
+            return value_.size();
+        }
+        virtual bool empty() const override {
+            return value_.empty();
+        }
 
         virtual const JSON_ARRAY& get_array() const override {
             throw std::runtime_error("Cannot convert object to array");

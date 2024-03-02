@@ -1,11 +1,3 @@
-#include "json.h"
-#include "int.h"
-#include "object.h"
-#include "string.h"
-#include "float.h"
-#include "bool.h"
-#include "array.h"
-
 #include "utility.h"
 
 using namespace ccjson;
@@ -20,8 +12,7 @@ int main(int argc, char* argv[]) {
     obj["wallet"] = make_json<ccjson::Float>(0.0);
 
     json j = make_json<ccjson::Object>(std::move(obj));
-
-    std::cout << j->to_string() << '\n';
+    std::cout << *j << '\n';
 
     return 0;
 }
