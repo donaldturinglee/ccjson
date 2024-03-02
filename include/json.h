@@ -4,6 +4,7 @@
 #include "type.h"
 
 namespace ccjson {
+    class JsonPtr;
     class Json {
     public:
         class Error : public std::exception {
@@ -64,8 +65,147 @@ namespace ccjson {
         virtual JSON_STRING& get_string() = 0;
         virtual JSON_BOOL& get_bool() = 0;
     };
+    
+    class JsonPtr : public Json {
+    public:
+        JsonPtr();
+        JsonPtr(const JsonPtr& source) = delete;
+        JsonPtr(JsonPtr&& source);
+        JsonPtr(std::unique_ptr<Json>&& source);
+        JsonPtr& operator=(const JsonPtr& source) = delete;
+        JsonPtr& operator=(JsonPtr&& source);
+        JsonPtr& operator=(std::unique_ptr<Json>&& source);
+        virtual Json& operator=(const Json& source) override {
+            throw std::runtime_error("TODO");
+        }
+        virtual Json& operator=(Json&& source) override {
+            throw std::runtime_error("TODO");
+        }
+        virtual ~JsonPtr() = default;
+
+        virtual std::string to_string(int indent = -1) const override {
+            return value_->to_string(indent);
+        }
+
+        // array
+        virtual const JSON_TYPE& operator[](size_t index) const override {
+            return (*value_)[index];
+        }
+        virtual JSON_TYPE& operator[](size_t index) override {
+            return (*value_)[index];
+        }
+        virtual void push(JSON_TYPE&& value) override {
+            value_->push(std::move(value));
+        }
+        virtual void insert(size_t index, JSON_TYPE&& value) override {
+            value_->insert(index, std::move(value));
+        }
+        virtual void erase(size_t index) override {
+            value_->erase(index);
+        }
+        virtual const JSON_TYPE& at(size_t index) const override {
+            return value_->at(index);
+        }
+        virtual JSON_TYPE& at(size_t index) override {
+            return value_->at(index);
+        }
+        virtual const JSON_TYPE& front() const override {
+            return value_->front();
+        }
+        virtual JSON_TYPE& front() override {
+            return value_->front();
+        }
+        virtual const JSON_TYPE& back() const override {
+            return value_->back();
+        }
+        virtual JSON_TYPE& back() override {
+            return value_->back();
+        }
+
+        // object
+        virtual const JSON_TYPE& operator[](const std::string& key) const override {
+            return (*value_)[key];
+        }
+        virtual JSON_TYPE& operator[](const std::string& key) override {
+            return (*value_)[key];
+        }
+        virtual const JSON_TYPE& operator[](const char* key) const override {
+            return (*value_)[key];
+        }
+        virtual JSON_TYPE& operator[](const char* key) override {
+            return (*value_)[key];
+        }
+        virtual void insert(const std::string& key, JSON_TYPE&& value) override {
+            value_->insert(key, std::move(value));
+        }
+        virtual bool contains(const std::string& key) const override {
+            return value_->contains(key);
+        }
+        virtual void erase(const std::string& key) override {
+            value_->erase(key);
+        }
+        virtual const JSON_TYPE& at(const std::string& key) const override {
+            return value_->at(key);
+        }
+        virtual JSON_TYPE& at(const std::string& key) override {
+            return value_->at(key);
+        }
+
+        // both array and object
+        virtual void clear() override {
+            value_->clear();
+        }
+        virtual size_t size() const override {
+            return value_->size();
+        }
+        virtual bool empty() const override {
+            return value_->empty();
+        }
+
+        // conversion
+        virtual const JSON_ARRAY& get_array() const override {
+            return value_->get_array();
+        }
+        virtual const JSON_OBJECT& get_object() const override {
+            return value_->get_object();
+        }
+        virtual JSON_FLOAT get_float() const override {
+            return value_->get_float();
+        }
+        virtual JSON_INT get_int() const override {
+            return value_->get_int();
+        }
+        virtual JSON_STRING get_string() const override {
+            return value_->get_string();
+        }
+        virtual JSON_BOOL get_bool() const override {
+            return value_->get_bool();
+        }
+
+        virtual JSON_ARRAY& get_array() override {
+            return value_->get_array();
+        }
+        virtual JSON_OBJECT& get_object() override {
+            return value_->get_object();
+        }
+        virtual JSON_FLOAT& get_float() override {
+            return value_->get_float();
+        }
+        virtual JSON_INT& get_int() override {
+            return value_->get_int();
+        }
+        virtual JSON_STRING& get_string() override {
+            return value_->get_string();
+        }
+        virtual JSON_BOOL& get_bool() override {
+            return value_->get_bool();
+        }
+
+    private:
+        std::unique_ptr<Json> value_;
+    };
 } // namespace ccjson
 
 std::ostream& operator<<(std::ostream& os, const ccjson::Json& json);
-
+std::ostream& operator<<(std::ostream& os, const ccjson::JsonPtr& json);
 #endif // JSON_H

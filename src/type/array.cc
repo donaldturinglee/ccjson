@@ -16,7 +16,7 @@ Array& Array::operator=(Array&& source) {
 std::string Array::to_string(int indent) const {
     std::string result{"["};
     for(auto& value : value_) {
-        result += value->to_string(indent);
+        result += value.to_string(indent);
         result += ",";
     }
     result += "]";

@@ -16,7 +16,7 @@ Object& Object::operator=(Object&& source) {
 std::string Object::to_string(int indent) const {
     std::string result = "{";
     for(auto& value : value_) {
-        result += value.first + ": " + value.second->to_string(indent) + ", ";
+        result += value.first + ": " + value.second.to_string(indent) + ", ";
     }
     result += "}";
     return result;
