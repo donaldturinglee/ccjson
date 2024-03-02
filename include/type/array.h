@@ -69,7 +69,6 @@ namespace ccjson {
         virtual JSON_TYPE& operator[](const char* key) override {
             throw std::runtime_error("Cannot use string as array index");
         }
-
         virtual void insert(const std::string& key, JSON_TYPE&& value) override {
             throw std::runtime_error("Cannot use insert() on array");
         }
@@ -87,6 +86,15 @@ namespace ccjson {
         }
 
         // both array and object
+        virtual void clear() override {
+            value_.clear();
+        }
+        virtual size_t size() const override {
+            return value_.size();
+        }
+        virtual bool empty() const override {
+            return value_.empty();
+        }
 
         virtual const JSON_ARRAY& get_array() const override {
             return value_;
