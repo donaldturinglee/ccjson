@@ -5,24 +5,23 @@ using namespace ccjson;
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-
+    
     json j = make_json<ccjson::Object>();
-    j["name"] = make_json<ccjson::String>(std::string("Lee"));
-    j["age"] = make_json<ccjson::Int>(26);
-    j["wallet"] = make_json<ccjson::Float>(0.0);
+    j["name"] = "Lee";
+    j["age"] = 26;
+    j["wallet"] = 0.0f;
 
-    ccjson::Array list;
-    list.push(make_json<ccjson::Int>(1));
-    list.push(make_json<ccjson::Int>(2));
+    json list = make_json<ccjson::Array>();
+    list.push(1);
+    list.push(2);
+    list.push(3);
+    j["list"] = std::move(list);
 
-
-    ccjson::Object obj;
-    obj["value"] = make_json<ccjson::Float>(42.99);
-
-    j["obj"] = make_json<ccjson::Object>(std::move(obj));
-    j["list"] = make_json<ccjson::Array>(std::move(list));
+    json obj = make_json<ccjson::Object>();
+    obj["version"] = "0.0.1";
+    j["object"] = std::move(obj);
 
     std::cout << j << '\n';
-
+    
     return 0;
 }

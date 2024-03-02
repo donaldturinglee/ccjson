@@ -5,6 +5,13 @@
 
 namespace ccjson {
     class JsonPtr;
+    class Array;
+    class Object;
+    class Bool;
+    class Float;
+    class Int;
+    class String;
+
     class Json {
     public:
         class Error : public std::exception {
@@ -69,8 +76,38 @@ namespace ccjson {
         JsonPtr();
         JsonPtr(JsonPtr&& source);
         JsonPtr(std::unique_ptr<Json>&& source);
+
+        JsonPtr(Array&& value);
+        JsonPtr(Object&& value);
+        JsonPtr(Bool&& value);
+        JsonPtr(Float&& value);
+        JsonPtr(Int&& value);
+        JsonPtr(String&& value);
+        JsonPtr(JSON_ARRAY&& value);
+        JsonPtr(JSON_OBJECT&& value);
+        JsonPtr(JSON_BOOL value);
+        JsonPtr(JSON_FLOAT value);
+        JsonPtr(JSON_INT value);
+        JsonPtr(JSON_STRING value);
+        JsonPtr(const char* value);
+
         JsonPtr& operator=(JsonPtr&& source);
         JsonPtr& operator=(std::unique_ptr<Json>&& source);
+
+        JsonPtr& operator=(Array&& value);
+        JsonPtr& operator=(Object&& value);
+        JsonPtr& operator=(Bool&& value);
+        JsonPtr& operator=(Float&& value);
+        JsonPtr& operator=(Int&& value);
+        JsonPtr& operator=(String&& value);
+        JsonPtr& operator=(JSON_ARRAY&& value);
+        JsonPtr& operator=(JSON_OBJECT&& value);
+        JsonPtr& operator=(JSON_BOOL value);
+        JsonPtr& operator=(JSON_FLOAT value);
+        JsonPtr& operator=(JSON_INT value);
+        JsonPtr& operator=(JSON_STRING value);
+        JsonPtr& operator=(const char* value);
+
         virtual ~JsonPtr() = default;
 
         virtual std::string to_string(int indent = -1) const override {
