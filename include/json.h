@@ -8,7 +8,7 @@
 #include <fstream>
 
 namespace ccjson {
-    class JsonPtr;
+    class Json;
     class Array;
     class Object;
     class Bool;
@@ -17,7 +17,7 @@ namespace ccjson {
     class String;
     class Null;
 
-    class Json {
+    class JsonBase {
     public:
         class Error : public std::exception {
         public:
@@ -27,7 +27,7 @@ namespace ccjson {
             std::string message_;
         };
 
-        virtual ~Json() = default;
+        virtual ~JsonBase() = default;
 
         virtual std::string to_string(int indent = 0, int base_indent = 0) const = 0;
         
@@ -76,49 +76,49 @@ namespace ccjson {
         virtual JSON_BOOL& get_bool() = 0;
     };
     
-    class JsonPtr : public Json {
+    class Json : public JsonBase {
     public:
-        JsonPtr();
-        JsonPtr(JsonPtr&& source);
-        JsonPtr(std::unique_ptr<Json>&& source);
+        Json();
+        Json(Json&& source);
+        Json(std::unique_ptr<JsonBase>&& source);
 
-        JsonPtr(Array&& value);
-        JsonPtr(Object&& value);
-        JsonPtr(Bool&& value);
-        JsonPtr(Float&& value);
-        JsonPtr(Int&& value);
-        JsonPtr(String&& value);
-        JsonPtr(JSON_ARRAY&& value);
-        JsonPtr(JSON_OBJECT&& value);
-        JsonPtr(JSON_BOOL value);
-        JsonPtr(JSON_FLOAT value);
-        JsonPtr(JSON_INT value);
-        JsonPtr(JSON_STRING value);
-        JsonPtr(const char* value);
+        Json(Array&& value);
+        Json(Object&& value);
+        Json(Bool&& value);
+        Json(Float&& value);
+        Json(Int&& value);
+        Json(String&& value);
+        Json(JSON_ARRAY&& value);
+        Json(JSON_OBJECT&& value);
+        Json(JSON_BOOL value);
+        Json(JSON_FLOAT value);
+        Json(JSON_INT value);
+        Json(JSON_STRING value);
+        Json(const char* value);
 
-        JsonPtr& operator=(JsonPtr&& source);
-        JsonPtr& operator=(std::unique_ptr<Json>&& source);
+        Json& operator=(Json&& source);
+        Json& operator=(std::unique_ptr<JsonBase>&& source);
 
-        JsonPtr& operator=(Array&& value);
-        JsonPtr& operator=(Object&& value);
-        JsonPtr& operator=(Bool&& value);
-        JsonPtr& operator=(Float&& value);
-        JsonPtr& operator=(Int&& value);
-        JsonPtr& operator=(String&& value);
-        JsonPtr& operator=(JSON_ARRAY&& value);
-        JsonPtr& operator=(JSON_OBJECT&& value);
-        JsonPtr& operator=(JSON_BOOL value);
-        JsonPtr& operator=(JSON_FLOAT value);
-        JsonPtr& operator=(JSON_INT value);
-        JsonPtr& operator=(JSON_STRING value);
-        JsonPtr& operator=(const char* value);
+        Json& operator=(Array&& value);
+        Json& operator=(Object&& value);
+        Json& operator=(Bool&& value);
+        Json& operator=(Float&& value);
+        Json& operator=(Int&& value);
+        Json& operator=(String&& value);
+        Json& operator=(JSON_ARRAY&& value);
+        Json& operator=(JSON_OBJECT&& value);
+        Json& operator=(JSON_BOOL value);
+        Json& operator=(JSON_FLOAT value);
+        Json& operator=(JSON_INT value);
+        Json& operator=(JSON_STRING value);
+        Json& operator=(const char* value);
 
-        virtual ~JsonPtr() = default;
+        virtual ~Json() = default;
 
-        const std::unique_ptr<Json>& get() const {
+        const std::unique_ptr<JsonBase>& get() const {
             return value_;
         }
-        std::unique_ptr<Json>& get() {
+        std::unique_ptr<JsonBase>& get() {
             return value_;
         }
 
@@ -265,14 +265,14 @@ namespace ccjson {
         operator String&();
         operator Null&();
 
-        static JsonPtr parse(const std::string& json);
-        static JsonPtr parse(std::ifstream& stream);
+        static Json parse(const std::string& json);
+        static Json parse(std::ifstream& stream);
 
     private:
-        std::unique_ptr<Json> value_;
+        std::unique_ptr<JsonBase> value_;
     };
 } // namespace ccjson
 
+std::ostream& operator<<(std::ostream& os, const ccjson::JsonBase& json);
 std::ostream& operator<<(std::ostream& os, const ccjson::Json& json);
-std::ostream& operator<<(std::ostream& os, const ccjson::JsonPtr& json);
 #endif // JSON_H

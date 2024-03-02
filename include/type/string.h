@@ -5,7 +5,7 @@
 #include <json.h>
 
 namespace ccjson {
-    class String : public Json {
+    class String : public JsonBase {
     public:
         String();
         String(const JSON_STRING& value);

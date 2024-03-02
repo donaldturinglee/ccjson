@@ -5,7 +5,7 @@
 #include "json.h"
 
 namespace ccjson {
-    class Float : public Json {
+    class Float : public JsonBase {
     public:
         Float();
         Float(JSON_FLOAT value);

@@ -6,7 +6,7 @@
 
 namespace ccjson {
 
-    class Null : public Json {
+    class Null : public JsonBase {
     public:
         Null() = default;
         Null(const Null& source) = default;

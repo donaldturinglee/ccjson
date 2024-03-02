@@ -23,7 +23,7 @@ namespace ccjson {
         Parser(std::ifstream& ifs);
         ~Parser() = default;
 
-        JsonPtr parse();
+        Json parse();
 
     private:
         std::string str_;

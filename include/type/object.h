@@ -5,7 +5,7 @@
 #include <memory>
 
 namespace ccjson {
-    class Object : public Json {
+    class Object : public JsonBase {
     public:
         Object();
         Object(const JSON_OBJECT& value) = delete;

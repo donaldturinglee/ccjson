@@ -5,7 +5,7 @@
 #include <memory>
 
 namespace ccjson {
-    class Int : public Json {
+    class Int : public JsonBase {
     public:
         Int();
         Int(JSON_INT value);

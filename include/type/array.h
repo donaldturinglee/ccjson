@@ -6,7 +6,7 @@
 
 namespace ccjson {
 
-    class Array : public Json {
+    class Array : public JsonBase {
     public:
         Array();
         Array(const JSON_ARRAY& value) = delete;

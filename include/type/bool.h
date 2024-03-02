@@ -5,7 +5,7 @@
 #include "json.h"
 
 namespace ccjson {
-    class Bool : public Json {
+    class Bool : public JsonBase {
     public:
         Bool();
         Bool(JSON_BOOL value);
