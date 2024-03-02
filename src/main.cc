@@ -6,6 +6,25 @@ using namespace ccjson;
 
 int main(int argc, char* argv[]) {
     
+    {
+        std::ifstream ifs("tests/test.json");
+        try {
+            json test = json::parse(ifs);
+            std::cout << test.to_string(4) << '\n';
+        } catch(const std::exception& e) {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    {
+        try {
+            json test = json::parse(R"({"name": "Lee"})");
+            std::cout << test.to_string(4) << '\n';
+        } catch(const std::exception& e) {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
     json j = make_json<ccjson::Object>();
     j["name"] = "Lee";
     j["age"] = 26;

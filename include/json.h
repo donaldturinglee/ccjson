@@ -3,6 +3,10 @@
 
 #include "type.h"
 
+#include <iostream>
+#include <string>
+#include <fstream>
+
 namespace ccjson {
     class JsonPtr;
     class Array;
@@ -245,6 +249,9 @@ namespace ccjson {
         operator JSON_BOOL() const {
             return get_bool();
         }
+
+        static JsonPtr parse(const std::string& json);
+        static JsonPtr parse(std::ifstream& stream);
 
     private:
         std::unique_ptr<Json> value_;

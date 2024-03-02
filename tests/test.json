@@ -1,0 +1,12 @@
+{
+    "name": "Lee",
+    "age": 26,
+    "wallet": 0.0,
+    "group": {
+        "backend": "C++"
+    },
+    "list": [
+        "c++",
+        "linux"
+    ]
+}
