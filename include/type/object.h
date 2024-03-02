@@ -14,8 +14,6 @@ namespace ccjson {
         Object(Object&& source);
         Object& operator=(const Object& source) = delete;
         Object& operator=(Object&& source);
-        virtual Json& operator=(const Json& source) override;
-        virtual Json& operator=(Json&& source) override;
         virtual ~Object() = default;
 
         virtual std::string to_string(int indent = -1) const override;

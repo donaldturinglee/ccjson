@@ -13,8 +13,6 @@ namespace ccjson {
         Int(Int&& source);
         Int& operator=(const Int& source);
         Int& operator=(Int&& source);
-        virtual Json& operator=(const Json& source) override;
-        virtual Json& operator=(Json&& source) override;
         virtual ~Int() = default;
 
         virtual std::string to_string(int indent = -1) const override;

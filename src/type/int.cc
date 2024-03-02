@@ -24,23 +24,3 @@ Int& Int::operator=(Int&& other) {
 std::string Int::to_string(int indent) const {
     return std::to_string(value_);
 }
-
-Json& Int::operator=(const Json& other) {
-    try {
-        const Int& other_int = dynamic_cast<const Int&>(other);
-        value_ = other_int.value_;
-    } catch(const std::bad_cast& e) {
-        throw std::runtime_error("Cannot assign a non-int value to an int");
-    }
-    return *this;
-}
-
-Json& Int::operator=(Json&& other) {
-    try {
-        Int& other_int = dynamic_cast<Int&>(other);
-        value_ = std::move(other_int.value_);
-    } catch(const std::bad_cast& e) {
-        throw std::runtime_error("Cannot assign a non-int value to an int");
-    }
-    return *this;
-}

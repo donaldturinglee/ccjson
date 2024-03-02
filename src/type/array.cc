@@ -22,17 +22,3 @@ std::string Array::to_string(int indent) const {
     result += "]";
     return result;
 }
-
-Json& Array::operator=(const Json& source) {
-    throw std::runtime_error("Cannot copy an array");
-}
-
-Json& Array::operator=(Json&& source) {
-    try {
-        Array& source_array = dynamic_cast<Array&>(source);
-        value_ = std::move(source_array.value_);
-    } catch(const std::bad_cast& e) {
-        throw std::runtime_error("Cannot assign a non-array value to an array");
-    }
-    return *this;
-}

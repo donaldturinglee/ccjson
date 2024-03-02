@@ -13,8 +13,6 @@ namespace ccjson {
         Float(Float&& source);
         Float& operator=(const Float& source);
         Float& operator=(Float&& source);
-        virtual Json& operator=(const Json& source) override;
-        virtual Json& operator=(Json&& source) override;
         virtual ~Float() = default;
 
         virtual std::string to_string(int indent = -1) const override;

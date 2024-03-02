@@ -21,17 +21,3 @@ std::string Object::to_string(int indent) const {
     result += "}";
     return result;
 }
-
-Json& Object::operator=(const Json& source) {
-    throw std::runtime_error("Cannot copy an object");
-}
-
-Json& Object::operator=(Json&& source) {
-    try {
-        Object& source_object = dynamic_cast<Object&>(source);
-        value_ = std::move(source_object.value_);
-    } catch(const std::bad_cast& e) {
-        throw std::runtime_error("Cannot assign a non-object value to an object");
-    }
-    return *this;
-}

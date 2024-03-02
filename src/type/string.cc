@@ -22,23 +22,3 @@ String& String::operator=(String&& source) {
 std::string String::to_string(int indent) const {
     return "\"" + value_ + "\"";
 }
-
-Json& String::operator=(const Json& source) {
-    try {
-        const String& source_string = dynamic_cast<const String&>(source);
-        value_ = source_string.value_;
-    } catch(const std::bad_cast& e) {
-        throw std::runtime_error("Cannot assign a non-string value to a string");
-    }
-    return *this;
-}
-
-Json& String::operator=(Json&& source) {
-    try {
-        String& source_string = dynamic_cast<String&>(source);
-        value_ = std::move(source_string.value_);
-    } catch(const std::bad_cast& e) {
-        throw std::runtime_error("Cannot assign a non-string value to a string");
-    }
-    return *this;
-}

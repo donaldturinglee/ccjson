@@ -15,8 +15,6 @@ namespace ccjson {
             std::string message_;
         };
 
-        virtual Json& operator=(const Json& source) = 0;
-        virtual Json& operator=(Json&& source) = 0;
         virtual ~Json() = default;
 
         virtual std::string to_string(int indent = -1) const = 0;
@@ -69,18 +67,10 @@ namespace ccjson {
     class JsonPtr : public Json {
     public:
         JsonPtr();
-        JsonPtr(const JsonPtr& source) = delete;
         JsonPtr(JsonPtr&& source);
         JsonPtr(std::unique_ptr<Json>&& source);
-        JsonPtr& operator=(const JsonPtr& source) = delete;
         JsonPtr& operator=(JsonPtr&& source);
         JsonPtr& operator=(std::unique_ptr<Json>&& source);
-        virtual Json& operator=(const Json& source) override {
-            throw std::runtime_error("TODO");
-        }
-        virtual Json& operator=(Json&& source) override {
-            throw std::runtime_error("TODO");
-        }
         virtual ~JsonPtr() = default;
 
         virtual std::string to_string(int indent = -1) const override {

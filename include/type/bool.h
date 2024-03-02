@@ -13,8 +13,6 @@ namespace ccjson {
         Bool(Bool&& source);
         Bool& operator=(const Bool& source);
         Bool& operator=(Bool&& source);
-        virtual Json& operator=(const Json& source) override;
-        virtual Json& operator=(Json&& source) override;
         virtual ~Bool() = default;
 
         virtual std::string to_string(int indent = -1) const override;
