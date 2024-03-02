@@ -228,6 +228,25 @@ namespace ccjson {
             return value_->get_bool();
         }
 
+        operator const JSON_ARRAY&() const {
+            return get_array();
+        }
+        operator const JSON_OBJECT&() const {
+            return get_object();
+        }
+        operator JSON_FLOAT() const {
+            return get_float();
+        }
+        operator JSON_INT() const {
+            return get_int();
+        }
+        operator JSON_STRING() const {
+            return get_string();
+        }
+        operator JSON_BOOL() const {
+            return get_bool();
+        }
+
     private:
         std::unique_ptr<Json> value_;
     };

@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
     json j = make_json<ccjson::Object>();
     j["name"] = "Lee";
     j["age"] = 26;
-    j["wallet"] = 0.0f;
+    j["wallet"] = 1.234f;
 
     json list = make_json<ccjson::Array>();
     list.push(1);
@@ -22,6 +22,9 @@ int main(int argc, char* argv[]) {
     j["object"] = std::move(obj);
 
     std::cout << j << '\n';
+
+    float wallet{j["wallet"]};
+    std::cout << wallet << '\n';
     
     return 0;
 }
