@@ -5,6 +5,7 @@
 #include "float.h"
 #include "int.h"
 #include "string.h"
+#include "null.h"
 
 using namespace ccjson;
 
@@ -14,7 +15,7 @@ const char* Json::Error::what() const noexcept {
     return message_.c_str();
 }
 
-JsonPtr::JsonPtr() : value_(nullptr) {}
+JsonPtr::JsonPtr() : value_(std::make_unique<Null>()) {}
 JsonPtr::JsonPtr(JsonPtr&& source) : value_(std::move(source.value_)) {}
 JsonPtr::JsonPtr(std::unique_ptr<Json>&& value) : value_(std::move(value)) {}
 
@@ -31,7 +32,7 @@ JsonPtr::JsonPtr(JSON_BOOL value) : value_(std::make_unique<Bool>(value)) {}
 JsonPtr::JsonPtr(JSON_FLOAT value) : value_(std::make_unique<Float>(value)) {}
 JsonPtr::JsonPtr(JSON_INT value) : value_(std::make_unique<Int>(value)) {}
 JsonPtr::JsonPtr(JSON_STRING value) : value_(std::make_unique<String>(value)) {}
-JsonPtr::JsonPtr(const char* value) : value_(std::make_unique<String>(value)) {}
+JsonPtr::JsonPtr(const char* value) : value_(value == nullptr ? static_cast<std::unique_ptr<Json>>(std::make_unique<Null>()) : std::make_unique<String>(value)) {}
 
 JsonPtr& JsonPtr::operator=(JsonPtr&& source) {
     value_ = std::move(source.value_);
@@ -104,7 +105,11 @@ JsonPtr& JsonPtr::operator=(JSON_STRING value) {
 }
 
 JsonPtr& JsonPtr::operator=(const char* value) {
-    value_ = std::make_unique<String>(value);
+    if(value == nullptr) {
+        value_ = std::make_unique<Null>();
+    } else {
+        value_ = std::make_unique<String>(value);
+    }
     return *this;
 }
 

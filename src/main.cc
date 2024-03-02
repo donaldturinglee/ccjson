@@ -10,6 +10,7 @@ int main(int argc, char* argv[]) {
     j["name"] = "Lee";
     j["age"] = 26;
     j["wallet"] = 1.234f;
+    j["nothing"] = nullptr;
 
     json list = make_json<ccjson::Array>();
     list.push(1);

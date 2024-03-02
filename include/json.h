@@ -11,6 +11,7 @@ namespace ccjson {
     class Float;
     class Int;
     class String;
+    class Null;
 
     class Json {
     public:
